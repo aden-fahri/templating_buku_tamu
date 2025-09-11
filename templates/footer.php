@@ -67,6 +67,15 @@
       });
     }, 400);
   });
+
+  // ambil data id user dari tombol ganti password ke modal ganti password
+  $(".modal").on('show.bs.modal', function(event) {
+    var button = $(event.relatedTarget)
+    var id = button.data('id')
+    console.log(id)
+    var modal = $(this)
+    modal.find('.modal-body #id_user').val(id)
+  });
 </script>
 </body>
 
