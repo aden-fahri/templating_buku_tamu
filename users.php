@@ -12,7 +12,7 @@
    <?php
     // Jika ada tombol simpan
     if (isset($_POST['simpan'])) {
-      if (tambah_tamu($_POST) > 0) {
+      if (tambah_user($_POST) > 0) {
     ?>
        <div class="alert alert-success" role="alert">
          Data berhasil disimpan!
@@ -53,7 +53,7 @@
                <tr>
                  <td><?= $no++; ?></td>
                  <td><?= $user['username'] ?></td>
-                 <td><?= $user['user-role'] ?></td>
+                 <td><?= $user['user_role'] ?></td>
                  <td>
                    <a class="btn btn-success" href="edit-user.php?id=<?= $user['id_user'] ?>">Ubah</a>
                    <a onclick="confirm('Apakah anda yakin ingin menghapus data ini?')" class="btn btn-danger"
@@ -72,19 +72,19 @@
 
  <?php
   // mangambil data barang dari tabel dengan kode tarbesar
-  $query = mysqli_query($koneksi, "SELECT max(id_tamu) as kodeTerbesar From buku_tamu");
+  $query = mysqli_query($koneksi, "SELECT max(id_user) as kodeTerbesar From users");
   $data = mysqli_fetch_array($query);
-  $kodeTamu = $data['kodeTerbesar'];
+  $kodeuser = $data['kodeTerbesar'];
 
   // mengambil angka dari kode barang terbesar
-  $urutan = (int) substr($kodeTamu, 2, 3);
+  $urutan = (int) substr($kodeuser, 2, 3);
 
   //nomor yang diambil akan bertambah 1 dan menentukan urutannya
   $urutan++;
 
   //membuat kode barang baru
   $huruf = "xt";
-  $kodeTamu = $huruf . sprintf("%03s", $urutan);
+  $kodeuser = $huruf . sprintf("%03s", $urutan);
   ?>
 
  <!-- Modal Tambah-->
@@ -99,35 +99,26 @@
        </div>
        <div class="modal-body">
          <form method="post" action="">
-           <input type="hidden" name="id_tamu" id="id_tamu" value="<?= $kodeTamu ?>">
+           <input type="hidden" name="id_user" id="id_user" value="<?= $kodeuser ?>">
            <div class="form-group row">
-             <label for="nama_tamu" class="col-sm-3 col-form-label">Nama Tamu</label>
+             <label for="username" class="col-sm-3 col-form-label">Username</label>
              <div class="col-sm-8">
-               <input type="text" class="form-control" name="nama_tamu" id="nama_tamu">
+               <input type="text" class="form-control" name="username" id="username">
              </div>
            </div>
            <div class="form-group row">
-             <label for="alamat" class="col-sm-3 col-form-label">Alamat</label>
+             <label for="password" class="col-sm-3 col-form-label">Password</label>
              <div class="col-sm-8">
-               <textarea class="form-control" name="alamat" id="alamat"></textarea>
+               <input type="password" class="form-control" name="password" id="password"></input>
              </div>
            </div>
            <div class="form-group row">
-             <label for="no_hp" class="col-sm-3 col-form-label">No. Telepon</label>
+             <label for="user_role" class="col-sm-3 col-form-label">User Role</label>
              <div class="col-sm-8">
-               <input type="text" class="form-control" name="no_hp" id="no_hp">
-             </div>
-           </div>
-           <div class="form-group row">
-             <label for="bertemu" class="col-sm-3 col-form-label">Bertemu dg</label>
-             <div class="col-sm-8">
-               <input type="text" class="form-control" name="bertemu" id="bertemu">
-             </div>
-           </div>
-           <div class="form-group row">
-             <label for="kepentingan" class="col-sm-3 col-form-label">Kepentingan</label>
-             <div class="col-sm-8">
-               <input type="text" class="form-control" name="kepentingan" id="kepentingan">
+               <select class="form-control" name="user_role" id="user_role">
+                 <option value="admin">Administrator</option>
+                 <option value="operator">Operator</option>
+               </select>
              </div>
            </div>
            <div class="modal-footer">
