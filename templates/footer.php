@@ -69,7 +69,7 @@
   });
 
   // ambil data id user dari tombol ganti password ke modal ganti password
-  $(".modal").on('show.bs.modal', function(event) {
+  $("#gantiPassword").on('show.bs.modal', function(event) {
     var button = $(event.relatedTarget)
     var id = button.data('id')
     console.log(id)
